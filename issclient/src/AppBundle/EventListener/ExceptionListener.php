@@ -3,6 +3,7 @@
 // src/AppBundle/EventListener/ExceptionListener.php
 
 namespace AppBundle\EventListener;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 

@@ -23,23 +23,26 @@ class IssClient implements SatelliteClientInterface
 
     public function __construct(ClientInterface $client, $url)
     {
-		$this->client = $client;
+        $this->client = $client;
         $this->url = $url;
     }
-	
+    
     public function getCoordinates()
     {
         $bodyContent = $this->getBodyContent();
-		
+        
         return [
             'latitude' => $bodyContent['latitude'],
             'longitude' => $bodyContent['longitude']
             ];
     }
-	
+    
     public function sendRequest(array $params = null)
     {
-        $this->psrResponse = $this->client->request('GET', $this->url, [
+        $this->psrResponse = $this->client->request(
+            'GET',
+            $this->url,
+            [
                 'query' => $params
             ]
         );
@@ -54,5 +57,4 @@ class IssClient implements SatelliteClientInterface
     {
         return $this->psrResponse->getStatusCode();
     }
-
 }

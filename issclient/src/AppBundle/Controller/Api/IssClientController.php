@@ -11,30 +11,29 @@ class IssClientController
 {
     /**
      * @var \AppBundle\Services\SatelliteClientInterface
-     */	
-	private $client;	
-	
+     */
+    private $client;
+    
     /**
      * @var int
      */
-	private $id;
-	
+    private $id;
+    
     public function __construct($client, $id)
     {
-		$this->client = $client;
-		$this->id = $id;		
-    }	
-	
+        $this->client = $client;
+        $this->id = $id;
+    }
+    
     public function get(Request $request)
     {
-		$this->client->sendRequest(array('id'=> $this->id));
-		$coordinates = $this->client->getCoordinates();
+        $this->client->sendRequest(array('id'=> $this->id));
+        $coordinates = $this->client->getCoordinates();
 
-		$issLatLng = new SubmitLatLng(
-			$coordinates['latitude'],
-			$coordinates['longitude']
-		);
-		return new JsonResponse($issLatLng, 200);
-
+        $issLatLng = new SubmitLatLng(
+            $coordinates['latitude'],
+            $coordinates['longitude']
+        );
+        return new JsonResponse($issLatLng, 200);
     }
 }
