@@ -1,0 +1,13 @@
+Date Wed, 10 Jul 2019 23:37:09 GMT
+Server Apache/2.2.22 (Ubuntu)
+X-Powered-By PHP/5.3.10-1ubuntu3.26
+X-Rate-Limit-Limit 350
+X-Rate-Limit-Remaining 348
+X-Rate-Limit-Interval 5 minutes
+Access-Control-Allow-Origin *
+X-Apache-Time D=14600
+Cache-Control max-age=0, no-cache
+Content-Length 311
+Keep-Alive timeout=15, max=100
+Connection Keep-Alive
+Content-Type application/json

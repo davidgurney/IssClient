@@ -1,0 +1,17 @@
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+get_iss_client_endpoint:
+    path: /api/v1/issposition
+    defaults:
+        _controller: app.api.iss_client_controller:get
+    methods:
+        - GET
+
+get_iss_distance_endpoint:
+    path: /api/v1/issdistance
+    defaults:
+        _controller: app.api.iss_distance_controller:distance
+    methods:
+        - POST

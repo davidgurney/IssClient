@@ -1,0 +1,46 @@
+# Learn more about services, parameters and containers at
+# https://symfony.com/doc/current/service_container.html
+parameters:
+    #parameter_name: value
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        # automatically injects dependencies in your services
+        autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
+        # this means you cannot fetch services directly from the container via $container->get()
+        # if you need to do this, you can override this setting on individual services
+        public: false
+
+    GuzzleHttp\Client: ~
+
+    GuzzleHttp\ClientInterface: '@GuzzleHttp\Client'
+
+    AppBundle\Services\SatelliteClientInterface: '@GuzzleHttp\Client'
+
+    iss_client:
+        class: 'AppBundle\Services\IssClient' 
+        public: true         
+        arguments: ['@AppBundle\Services\SatelliteClientInterface', '%iss_api_url%']
+
+    app.api.iss_client_controller:
+        class: 'AppBundle\Controller\Api\IssClientController' 
+        public: true 
+        arguments: ['@iss_client', '%iss_id%']
+
+    app.api.iss_distance_controller:
+        class: 'AppBundle\Controller\Api\IssDistanceController' 
+        public: true
+        arguments: ['@iss_client', '%iss_id%']
+
+    app.json_request_content_listener:
+        class: 'AppBundle\EventListener\JsonRequestContentListener'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    app.exception_listener:
+        class: 'AppBundle\EventListener\ExceptionListener'
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }    
