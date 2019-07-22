@@ -3,7 +3,7 @@
 
 namespace AppBundle\EventListener;
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 /**
@@ -22,7 +22,7 @@ class JsonRequestContentListener
         }
         $data = json_decode($request->getContent(), true);
         if (JSON_ERROR_NONE !== json_last_error()) {
-            $event->setResponse(new Response('{"error":"Invalid or malformed JSON"}', 400, array('Content-Type' => 'application/json')));
+            $event->setResponse(new JsonResponse('{"error":"Invalid or malformed JSON"}', 400));
         }
         $request->request->add($data ?: array());
     }

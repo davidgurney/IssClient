@@ -3,7 +3,7 @@
 // src/AppBundle/EventListener/ExceptionListener.php
 
 namespace AppBundle\EventListener;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
 class ExceptionListener
@@ -15,8 +15,8 @@ class ExceptionListener
         if (!$exception instanceof \DomainException) {
             return;
         }
-        $event->setResponse(new Response(json_encode(array(
+        $event->setResponse(new JsonResponse(array(
             'error' => $exception->getMessage(),
-        )), $exception->getCode(), array('Content-Type' => 'application/json')));
+        ), $exception->getCode()));
     }
 }

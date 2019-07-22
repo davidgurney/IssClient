@@ -29,15 +29,12 @@ class IssClientController
     {
 		$this->client->sendRequest(array('id'=> $this->id));
 		$coordinates = $this->client->getCoordinates();
-        try {
-			$issLatLng = new SubmitLatLng(
-				$coordinates['latitude'],
-				$coordinates['longitude']
-			);
-			return new JsonResponse($issLatLng, 200);
-        } catch (\InvalidArgumentException $e) {
-			return new JsonResponse($e->getMessage(), 400);
-        }		
-        
+
+		$issLatLng = new SubmitLatLng(
+			$coordinates['latitude'],
+			$coordinates['longitude']
+		);
+		return new JsonResponse($issLatLng, 200);
+
     }
 }
